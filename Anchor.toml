@@ -5,14 +5,53 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
+circle-integration = "742CfUUTjqb8etrFz4b1TZ5SRTHyUP8uhh8DAR2fwBnS"
+message-transmitter = "CCTPmbSD7gX1bxKPAmg77w8oFzNFpaQiQUWD43TKaecd"
 solana_messenger = "mesmzuHztrYrrGFSz3nm7uQzThz3t3JNdBvioj1YCT9"
+token-messenger-minter = "CCTPiPYPc6AsJuwueEnWgSgucamXDZwBd53dQ11YiKX3"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "ts/keys/7k9Lvi32RrdgtV13TiWnzu63yCySBNfyndfHruUj78qJ.json"
 
 [scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 ts/tests/**/*.ts"
+
+[test.validator]
+url = "https://api.devnet.solana.com"
+
+### Forked Circle Message Transmitter Program
+[[test.validator.clone]]
+address = "CCTPmbSD7gX1bxKPAmg77w8oFzNFpaQiQUWD43TKaecd"
+
+### Forked Circle Token Messenger Minter Program
+[[test.validator.clone]]
+address = "CCTPiPYPc6AsJuwueEnWgSgucamXDZwBd53dQ11YiKX3"
+
+### Mint -- USDC (Modified with mint_authority set to test wallet)
+[[test.validator.account]]
+address = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+filename = "ts/accounts/usdc_mint.json"
+
+### Circle Message Transmitter PDA -- Message Transmitter Config
+[[test.validator.clone]]
+address = "BWrwSWjbikT3H7qHAkUEbLmwDQoB4ZDJ4wcSEhSPTZCu"
+
+### Circle Token Messenger Minter PDA -- Token Messenger
+[[test.validator.clone]]
+address = "Afgq3BHEfCE7d78D2XE9Bfyu2ieDqvE24xX8KDwreBms"
+
+### Circle Token Messenger Minter PDA -- Ethereum Remote Token Messenger
+[[test.validator.clone]]
+address = "Hazwi3jFQtLKc2ughi7HFXPkpDeso7DQaMR9Ks4afh3j"
+
+### Circle Token Messenger Minter PDA -- Token Minter
+[[test.validator.clone]]
+address = "DBD8hAwLDRQkTsu6EqviaYNGKPnsAMmQonxf7AH8ZcFY"
+
+### Circle Token Messenger Minter PDA -- USDC Local Token
+[[test.validator.clone]]
+address = "4xt9P42CcMHXAgvemTnzineHp6owfGUcrg1xD9V7mdk1"
