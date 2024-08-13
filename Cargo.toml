@@ -1,6 +1,5 @@
 [workspace]
 members = [
-    "modules/cctp",
     "programs/*"
 ]
 resolver = "2"
